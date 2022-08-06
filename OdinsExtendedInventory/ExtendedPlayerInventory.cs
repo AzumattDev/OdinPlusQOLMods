@@ -109,8 +109,6 @@ namespace OdinsExtendedInventory
                 int height = extraRows.Value + (addEquipmentRow.Value ? 5 : 4);
 
                 __instance.GetComponent<Container>().m_height = height;
-                //AccessTools.FieldRefAccess<Inventory, int>(AccessTools.FieldRefAccess<Container, Inventory>(__instance.GetComponent<Container>(), "m_inventory"), "m_height") = height;
-                //Dbgl($"tombstone Awake {__instance.GetComponent<Container>().GetInventory()?.GetHeight()}");
             }
         }
 
@@ -129,12 +127,11 @@ namespace OdinsExtendedInventory
                 if (string.IsNullOrEmpty(base64String))
                     return;
                 ZPackage pkg = new(base64String);
-                traverse.Field("m_loading").SetValue(true);
-                traverse.Field("m_inventory").GetValue<Inventory>().Load(pkg);
-                traverse.Field("m_loading").SetValue(false);
-                traverse.Field("m_lastRevision")
-                    .SetValue(traverse.Field("m_nview").GetValue<ZNetView>().GetZDO().m_dataRevision);
-                traverse.Field("m_lastDataString").SetValue(base64String);
+                ___m_container.m_loading = true;
+                ___m_container.m_inventory.Load(pkg);
+                ___m_container.m_loading = false;
+                ___m_container.m_lastRevision = ___m_container.m_nview.GetZDO().m_dataRevision;
+                ___m_container.m_lastDataString = base64String;
             }
         }
 
@@ -159,7 +156,7 @@ namespace OdinsExtendedInventory
                 if (!modEnabled.Value)
                     return;
                 int height = extraRows.Value + (addEquipmentRow.Value ? 5 : 4);
-                AccessTools.FieldRefAccess<Inventory, int>(___m_inventory, "m_height") = height;
+                ___m_inventory.m_height = height;
                 __instance.m_tombstone.GetComponent<Container>().m_height = height;
                 if (Util.IgnoreKeyPresses(true) || !addEquipmentRow.Value)
                     return;
@@ -187,23 +184,22 @@ namespace OdinsExtendedInventory
 
             private static void CreateTombStone()
             {
-                OdinsExtendedInventoryLogger.LogDebug(string.Format("height {0}",
-                    Player.m_localPlayer.m_tombstone.GetComponent<Container>().m_height));
+                OdinsExtendedInventoryLogger.LogDebug(
+                    $"height {Player.m_localPlayer.m_tombstone.GetComponent<Container>().m_height}");
                 GameObject gameObject = Object.Instantiate(Player.m_localPlayer.m_tombstone,
                     Player.m_localPlayer.GetCenterPoint(), Player.m_localPlayer.transform.rotation);
                 TombStone component = gameObject.GetComponent<TombStone>();
-                OdinsExtendedInventoryLogger.LogDebug(string.Format("height {0}",
-                    gameObject.GetComponent<Container>().m_height));
-                OdinsExtendedInventoryLogger.LogDebug(string.Format("inv height {0}",
-                    gameObject.GetComponent<Container>().GetInventory().GetHeight()));
-                OdinsExtendedInventoryLogger.LogDebug(string.Format("inv slots {0}",
-                    gameObject.GetComponent<Container>().GetInventory().GetEmptySlots()));
+                OdinsExtendedInventoryLogger.LogDebug($"height {gameObject.GetComponent<Container>().m_height}");
+                OdinsExtendedInventoryLogger.LogDebug(
+                    $"inv height {gameObject.GetComponent<Container>().GetInventory().GetHeight()}");
+                OdinsExtendedInventoryLogger.LogDebug(
+                    $"inv slots {gameObject.GetComponent<Container>().GetInventory().GetEmptySlots()}");
                 for (int index = 0;
                      index < gameObject.GetComponent<Container>().GetInventory().GetEmptySlots();
                      ++index)
                     gameObject.GetComponent<Container>().GetInventory().AddItem("SwordBronze", 1, 1, 0, 0L, "");
-                OdinsExtendedInventoryLogger.LogDebug(string.Format("no items: {0}",
-                    gameObject.GetComponent<Container>().GetInventory().NrOfItems()));
+                OdinsExtendedInventoryLogger.LogDebug(
+                    $"no items: {gameObject.GetComponent<Container>().GetInventory().NrOfItems()}");
                 PlayerProfile playerProfile = Game.instance.GetPlayerProfile();
                 component.Setup(playerProfile.GetName(), playerProfile.GetPlayerID());
             }
@@ -221,63 +217,57 @@ namespace OdinsExtendedInventory
                     return;
                 if (addEquipmentRow.Value)
                 {
-                    Traverse traverse = Traverse.Create(Player.m_localPlayer);
                     Inventory inventory = Player.m_localPlayer.GetInventory();
                     List<ItemDrop.ItemData> allItems = inventory.GetAllItems();
-                    ItemDrop.ItemData itemData1 = traverse.Field("m_helmetItem").GetValue<ItemDrop.ItemData>();
-                    ItemDrop.ItemData itemData2 = traverse.Field("m_chestItem").GetValue<ItemDrop.ItemData>();
-                    ItemDrop.ItemData itemData3 = traverse.Field("m_legItem").GetValue<ItemDrop.ItemData>();
-                    ItemDrop.ItemData itemData4 = traverse.Field("m_shoulderItem").GetValue<ItemDrop.ItemData>();
-                    ItemDrop.ItemData itemData5 = traverse.Field("m_utilityItem").GetValue<ItemDrop.ItemData>();
+                    var player = Player.m_localPlayer;
+                    ItemDrop.ItemData itemData1 = player.m_helmetItem;
+                    ItemDrop.ItemData itemData2 = player.m_chestItem;
+                    ItemDrop.ItemData itemData3 = player.m_legItem;
+                    ItemDrop.ItemData itemData4 = player.m_shoulderItem;
+                    ItemDrop.ItemData itemData5 = player.m_utilityItem;
                     int width = inventory.GetWidth();
                     int num1 = width * (inventory.GetHeight() - 1);
                     if (itemData1 != null)
-                        traverse.Field("m_helmetItem").GetValue<ItemDrop.ItemData>().m_gridPos =
+                        player.m_helmetItem.m_gridPos =
                             new Vector2i(num1 % width, num1 / width);
                     int num2 = num1 + 1;
                     if (itemData2 != null)
-                        traverse.Field("m_chestItem").GetValue<ItemDrop.ItemData>().m_gridPos =
+                        player.m_chestItem.m_gridPos =
                             new Vector2i(num2 % width, num2 / width);
                     int num3 = num2 + 1;
                     if (itemData3 != null)
-                        traverse.Field("m_legItem").GetValue<ItemDrop.ItemData>().m_gridPos =
+                        player.m_legItem.m_gridPos =
                             new Vector2i(num3 % width, num3 / width);
                     int num4 = num3 + 1;
                     if (itemData4 != null)
-                        traverse.Field("m_shoulderItem").GetValue<ItemDrop.ItemData>().m_gridPos =
+                        player.m_shoulderItem.m_gridPos =
                             new Vector2i(num4 % width, num4 / width);
                     int num5 = num4 + 1;
                     if (itemData5 != null)
-                        traverse.Field("m_utilityItem").GetValue<ItemDrop.ItemData>().m_gridPos =
+                        player.m_utilityItem.m_gridPos =
                             new Vector2i(num5 % width, num5 / width);
-                    for (int index = 0; index < allItems.Count; ++index)
+                    foreach (ItemDrop.ItemData t in allItems)
                     {
-                        int which;
-                        if (IsAtEquipmentSlot(inventory, allItems[index], out which) &&
-                            (which != 0 || allItems[index] != itemData1) &&
-                            (which != 1 || allItems[index] != itemData2) &&
-                            (which != 2 || allItems[index] != itemData3) &&
-                            (which != 3 || allItems[index] != itemData4) &&
-                            (which != 4 || allItems[index] != itemData5) && (which <= -1 ||
-                                                                             allItems[index].m_shared.m_itemType !=
-                                                                             typeEnums[which] ||
-                                                                             equipItems[which] == allItems[index] ||
-                                                                             !Player.m_localPlayer.EquipItem(
-                                                                                 allItems[index], false)))
+                        if (IsAtEquipmentSlot(inventory, t, out int which) &&
+                            (which != 0 || t != itemData1) &&
+                            (which != 1 || t != itemData2) &&
+                            (which != 2 || t != itemData3) &&
+                            (which != 3 || t != itemData4) &&
+                            (which != 4 || t != itemData5) && (which <= -1 ||
+                                                               t.m_shared.m_itemType !=
+                                                               typeEnums[which] ||
+                                                               equipItems[which] == t ||
+                                                               !Player.m_localPlayer.EquipItem(
+                                                                   t, false)))
                         {
-                            Vector2i vector2i = (Vector2i)typeof(Inventory)
-                                .GetMethod("FindEmptySlot", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(
-                                    inventory, new object[1]
-                                    {
-                                        true
-                                    });
-                            if (vector2i.x < 0 || vector2i.y < 0 || vector2i.y == inventory.GetHeight() - 1)
+                            Vector2i vector2I = inventory.FindEmptySlot(true);
+                            if (vector2I.x < 0 || vector2I.y < 0 || vector2I.y == inventory.GetHeight() - 1)
                             {
-                                Player.m_localPlayer.DropItem(inventory, allItems[index], allItems[index].m_stack);
+                                Player.m_localPlayer.DropItem(inventory, t, t.m_stack);
                             }
                             else
                             {
-                                allItems[index].m_gridPos = vector2i;
+                                t.m_gridPos = vector2I;
                                 ___m_playerGrid.UpdateInventory(inventory, Player.m_localPlayer, null);
                             }
                         }
@@ -377,99 +367,82 @@ namespace OdinsExtendedInventory
                     return;
                 try
                 {
-                    Traverse.Create(Player.m_localPlayer);
                     Inventory inventory = Player.m_localPlayer.GetInventory();
                     int num1 = inventory.GetWidth() * (inventory.GetHeight() - 1);
                     string str1 = helmetText.Value;
                     Transform transform1 = ___m_playerGrid.m_gridRoot.transform;
-                    int index1 = num1;
-                    int num2 = index1 + 1;
-                    Transform child1 = transform1.GetChild(index1);
+                    int num2 = num1 + 1;
+                    Transform child1 = transform1.GetChild(num1);
                     SetSlotText(str1, child1);
                     string str2 = chestText.Value;
                     Transform transform2 = ___m_playerGrid.m_gridRoot.transform;
-                    int index2 = num2;
-                    int num3 = index2 + 1;
-                    Transform child2 = transform2.GetChild(index2);
+                    int num3 = num2 + 1;
+                    Transform child2 = transform2.GetChild(num2);
                     SetSlotText(str2, child2);
                     string str3 = legsText.Value;
                     Transform transform3 = ___m_playerGrid.m_gridRoot.transform;
-                    int index3 = num3;
-                    int num4 = index3 + 1;
-                    Transform child3 = transform3.GetChild(index3);
+                    int num4 = num3 + 1;
+                    Transform child3 = transform3.GetChild(num3);
                     SetSlotText(str3, child3);
                     string str4 = backText.Value;
                     Transform transform4 = ___m_playerGrid.m_gridRoot.transform;
-                    int index4 = num4;
-                    int num5 = index4 + 1;
-                    Transform child4 = transform4.GetChild(index4);
+                    int num5 = num4 + 1;
+                    Transform child4 = transform4.GetChild(num4);
                     SetSlotText(str4, child4);
                     string str5 = utilityText.Value;
                     Transform transform5 = ___m_playerGrid.m_gridRoot.transform;
-                    int index5 = num5;
-                    int num6 = index5 + 1;
-                    Transform child5 = transform5.GetChild(index5);
+                    int num6 = num5 + 1;
+                    Transform child5 = transform5.GetChild(num5);
                     SetSlotText(str5, child5);
                     string str6 = hotKey1.Value.ToString();
                     Transform transform6 = ___m_playerGrid.m_gridRoot.transform;
-                    int index6 = num6;
-                    int num7 = index6 + 1;
-                    Transform child6 = transform6.GetChild(index6);
+                    int num7 = num6 + 1;
+                    Transform child6 = transform6.GetChild(num6);
                     SetSlotText(str6, child6, false);
                     string str7 = hotKey2.Value.ToString();
                     Transform transform7 = ___m_playerGrid.m_gridRoot.transform;
-                    int index7 = num7;
-                    int num8 = index7 + 1;
-                    Transform child7 = transform7.GetChild(index7);
+                    int num8 = num7 + 1;
+                    Transform child7 = transform7.GetChild(num7);
                     SetSlotText(str7, child7, false);
                     string str8 = hotKey3.Value.ToString();
                     Transform transform8 = ___m_playerGrid.m_gridRoot.transform;
-                    int index8 = num8;
-                    int num9 = index8 + 1;
-                    Transform child8 = transform8.GetChild(index8);
+                    int num9 = num8 + 1;
+                    Transform child8 = transform8.GetChild(num8);
                     SetSlotText(str8, child8, false);
                     if (!displayEquipmentRowSeparate.Value)
                         return;
                     int num10 = inventory.GetWidth() * (inventory.GetHeight() - 1);
                     Transform transform9 = ___m_playerGrid.m_gridRoot.transform;
-                    int index9 = num10;
-                    int num11 = index9 + 1;
-                    transform9.GetChild(index9).GetComponent<RectTransform>().anchoredPosition =
+                    int num11 = num10 + 1;
+                    transform9.GetChild(num10).GetComponent<RectTransform>().anchoredPosition =
                         new Vector2(678f, 0.0f);
                     Transform transform10 = ___m_playerGrid.m_gridRoot.transform;
-                    int index10 = num11;
-                    int num12 = index10 + 1;
-                    transform10.GetChild(index10).GetComponent<RectTransform>().anchoredPosition =
+                    int num12 = num11 + 1;
+                    transform10.GetChild(num11).GetComponent<RectTransform>().anchoredPosition =
                         new Vector2(748f, -35f);
                     Transform transform11 = ___m_playerGrid.m_gridRoot.transform;
-                    int index11 = num12;
-                    int num13 = index11 + 1;
-                    transform11.GetChild(index11).GetComponent<RectTransform>().anchoredPosition =
+                    int num13 = num12 + 1;
+                    transform11.GetChild(num12).GetComponent<RectTransform>().anchoredPosition =
                         new Vector2(678f, -70f);
                     Transform transform12 = ___m_playerGrid.m_gridRoot.transform;
-                    int index12 = num13;
-                    int num14 = index12 + 1;
-                    transform12.GetChild(index12).GetComponent<RectTransform>().anchoredPosition =
+                    int num14 = num13 + 1;
+                    transform12.GetChild(num13).GetComponent<RectTransform>().anchoredPosition =
                         new Vector2(748f, -105f);
                     Transform transform13 = ___m_playerGrid.m_gridRoot.transform;
-                    int index13 = num14;
-                    int num15 = index13 + 1;
-                    transform13.GetChild(index13).GetComponent<RectTransform>().anchoredPosition =
+                    int num15 = num14 + 1;
+                    transform13.GetChild(num14).GetComponent<RectTransform>().anchoredPosition =
                         new Vector2(678f, -140f);
                     Transform transform14 = ___m_playerGrid.m_gridRoot.transform;
-                    int index14 = num15;
-                    int num16 = index14 + 1;
-                    transform14.GetChild(index14).GetComponent<RectTransform>().anchoredPosition =
+                    int num16 = num15 + 1;
+                    transform14.GetChild(num15).GetComponent<RectTransform>().anchoredPosition =
                         new Vector2(643f, -210f);
                     Transform transform15 = ___m_playerGrid.m_gridRoot.transform;
-                    int index15 = num16;
-                    int num17 = index15 + 1;
-                    transform15.GetChild(index15).GetComponent<RectTransform>().anchoredPosition =
+                    int num17 = num16 + 1;
+                    transform15.GetChild(num16).GetComponent<RectTransform>().anchoredPosition =
                         new Vector2(713f, -210f);
                     Transform transform16 = ___m_playerGrid.m_gridRoot.transform;
-                    int index16 = num17;
-                    num9 = index16 + 1;
-                    transform16.GetChild(index16).GetComponent<RectTransform>().anchoredPosition =
+                    num9 = num17 + 1;
+                    transform16.GetChild(num17).GetComponent<RectTransform>().anchoredPosition =
                         new Vector2(783f, -210f);
                 }
                 catch (Exception ex)
@@ -558,8 +531,7 @@ namespace OdinsExtendedInventory
                 item.m_gridPos = new Vector2i(which, __instance.GetHeight() - 1);
                 ___m_inventory.Add(item);
                 Player.m_localPlayer.EquipItem(item, false);
-                typeof(Inventory).GetMethod("Changed", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Invoke(__instance, new object[0]);
+                __instance.Changed();
                 __result = true;
                 return false;
             }
@@ -690,7 +662,7 @@ namespace OdinsExtendedInventory
                                 transform.Find("QuickAccessBar").GetComponent<RectTransform>().sizeDelta.y *
                                 scaleFactor * quickAccessScale.Value);
                         if (rect.Contains(lastMousePos) &&
-                            (currentlyDragging == "" || currentlyDragging == "QuickAccessBar"))
+                            currentlyDragging is "" or "QuickAccessBar")
                         {
                             quickAccessX.Value += (mousePosition.x - lastMousePos.x) / scaleFactor;
                             quickAccessY.Value += (mousePosition.y - lastMousePos.y) / scaleFactor;

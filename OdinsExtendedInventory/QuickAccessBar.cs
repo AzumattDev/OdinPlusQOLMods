@@ -90,9 +90,8 @@ namespace OdinsExtendedInventory
                     foreach (ElementData element in m_elements)
                         element.m_used = false;
                     bool flag = ZInput.IsGamepadActive();
-                    for (int index = 0; index < m_items.Count; ++index)
+                    foreach (ItemDrop.ItemData itemData in m_items)
                     {
-                        ItemDrop.ItemData itemData = m_items[index];
                         ElementData element = m_elements[itemData.m_gridPos.x - 5];
                         element.m_used = true;
                         element.m_icon.gameObject.SetActive(true);

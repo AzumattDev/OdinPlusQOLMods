@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectPanel", "ConnectPanel\ConnectPanel.csproj", "{4A9F4E1B-3743-458C-AD78-2C1744420C60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdinsExtendedInventory", "OdinsExtendedInventory\OdinsExtendedInventory.csproj", "{D09C097B-3A31-4B05-B65A-F931CB77BD8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdinsInventoryDiscard", "OdinsInventoryDiscard\OdinsInventoryDiscard.csproj", "{9C0A737E-0308-4A0B-BAB8-1842D225CEED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A9F4E1B-3743-458C-AD78-2C1744420C60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A9F4E1B-3743-458C-AD78-2C1744420C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A9F4E1B-3743-458C-AD78-2C1744420C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A9F4E1B-3743-458C-AD78-2C1744420C60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D09C097B-3A31-4B05-B65A-F931CB77BD8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D09C097B-3A31-4B05-B65A-F931CB77BD8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D09C097B-3A31-4B05-B65A-F931CB77BD8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D09C097B-3A31-4B05-B65A-F931CB77BD8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C0A737E-0308-4A0B-BAB8-1842D225CEED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0A737E-0308-4A0B-BAB8-1842D225CEED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0A737E-0308-4A0B-BAB8-1842D225CEED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0A737E-0308-4A0B-BAB8-1842D225CEED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

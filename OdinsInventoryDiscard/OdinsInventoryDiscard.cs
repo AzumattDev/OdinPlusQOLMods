@@ -144,8 +144,7 @@ namespace OdinsInventoryDiscard
                                 if (!returnUnknownResources.Value &&
                                     (ObjectDB.instance.GetRecipe(kvp.Key.m_itemData) &&
                                      !Player.m_localPlayer.IsRecipeKnown(kvp.Key.m_itemData.m_shared.m_name) ||
-                                     !Traverse.Create(Player.m_localPlayer).Field("m_knownMaterial")
-                                         .GetValue<HashSet<string>>().Contains(kvp.Key.m_itemData.m_shared.m_name)))
+                                     !Player.m_localPlayer.m_knownMaterial.Contains(kvp.Key.m_itemData.m_shared.m_name)))
                                 {
                                     Player.m_localPlayer.Message(MessageHud.MessageType.Center,
                                         "You don't know all the recipes for this item's materials.");
@@ -185,15 +184,16 @@ namespace OdinsInventoryDiscard
                                                     req.m_resItem.m_itemData.m_variant,
                                                     0, "") == null)
                                             {
+                                                Transform transform1;
                                                 ItemDrop component = Instantiate(prefab,
-                                                    Player.m_localPlayer.transform.position +
-                                                    Player.m_localPlayer.transform.forward +
-                                                    Player.m_localPlayer.transform.up,
-                                                    Player.m_localPlayer.transform.rotation).GetComponent<ItemDrop>();
+                                                    (transform1 = Player.m_localPlayer.transform).position +
+                                                    transform1.forward +
+                                                    transform1.up,
+                                                    transform1.rotation).GetComponent<ItemDrop>();
                                                 component.m_itemData = newItem;
                                                 component.m_itemData.m_dropPrefab = prefab;
                                                 component.m_itemData.m_stack = stack;
-                                                Traverse.Create(component).Method("Save").GetValue();
+                                                component.Save();
                                             }
                                         }
                                     }
@@ -214,8 +214,7 @@ namespace OdinsInventoryDiscard
 
                 Destroy(___m_dragGo);
                 ___m_dragGo = null;
-                __instance.GetType().GetMethod("UpdateCraftingPanel", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Invoke(__instance, new object[] { false });
+                __instance.UpdateCraftingPanel(false);
             }
         }
 

@@ -619,10 +619,6 @@ namespace OdinsExtendedInventory
                     __instance.m_rootObject.transform, true);
                 transform.name = "QuickAccessBar";
                 transform.GetComponent<RectTransform>().localPosition = Vector3.zero;
-                GameObject elementPrefab = transform.GetComponent<HotkeyBar>().m_elementPrefab;
-                transform.gameObject.AddComponent<QuickAccessBar>().m_elementPrefab = elementPrefab;
-                elementPrefab = elementPrefab;
-                Object.Destroy(transform.GetComponent<HotkeyBar>());
             }
         }
 

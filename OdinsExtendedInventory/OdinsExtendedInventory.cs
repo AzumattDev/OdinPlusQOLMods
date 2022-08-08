@@ -68,6 +68,13 @@ namespace OdinsExtendedInventory
                 "Hotkey 2 - Use https://docs.unity3d.com/Manual/ConventionalGameInput.html", false);
             hotKey3 = config("Extended Inventory", "HotKey3", KeyCode.C,
                 "Hotkey 3 - Use https://docs.unity3d.com/Manual/ConventionalGameInput.html", false);
+            
+            hotKey1Text = config("Extended Inventory", "HotKey1 Text", "",
+                "Hotkey 1 Display Text. Leave blank to use the hotkey itself.", false);
+            hotKey2Text = config("Extended Inventory", "HotKey2 Text", "",
+                "Hotkey 2 Display Text. Leave blank to use the hotkey itself.", false);
+            hotKey3Text = config("Extended Inventory", "HotKey3 Text", "",
+                "Hotkey 3 Display Text. Leave blank to use the hotkey itself.", false);
 
             modKeyOne = config("Extended Inventory", "ModKey1", KeyCode.Mouse0,
                 "First modifier key to move quick slots. Use https://docs.unity3d.com/Manual/ConventionalGameInput.html format.",
@@ -101,6 +108,13 @@ namespace OdinsExtendedInventory
                 hotKey1,
                 hotKey2,
                 hotKey3
+            };
+            
+            hotkeyTexts = new[]
+            {
+                hotKey1Text,
+                hotKey2Text,
+                hotKey3Text
             };
             _harmony.PatchAll();
             SetupWatcher();
@@ -164,10 +178,14 @@ namespace OdinsExtendedInventory
         public static ConfigEntry<KeyCode> hotKey1;
         public static ConfigEntry<KeyCode> hotKey2;
         public static ConfigEntry<KeyCode> hotKey3;
+        public static ConfigEntry<string> hotKey1Text;
+        public static ConfigEntry<string> hotKey2Text;
+        public static ConfigEntry<string> hotKey3Text;
         public static ConfigEntry<KeyCode> modKeyOne;
         public static ConfigEntry<KeyCode> modKeyTwo;
 
         public static ConfigEntry<KeyCode>[] hotkeys;
+        public static ConfigEntry<string>[] hotkeyTexts;
 
         public static ConfigEntry<float> quickAccessX;
         public static ConfigEntry<float> quickAccessY;

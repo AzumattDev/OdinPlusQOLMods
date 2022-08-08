@@ -1,4 +1,5 @@
 ﻿using System;
+using BepInEx;
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,9 +52,17 @@ namespace OdinsExtendedInventory
                             {
                                 m_go = Object.Instantiate(__instance.m_elementPrefab, __instance.transform)
                             };
-                            elementData.m_go.transform.localPosition = new Vector3(index * __instance.m_elementSpace, 0.0f, 0.0f);
+                            elementData.m_go.transform.localPosition =
+                                new Vector3(index * __instance.m_elementSpace, 0.0f, 0.0f);
                             elementData.m_go.transform.Find("binding").GetComponent<Text>().text =
-                                OdinsExtendedInventoryPlugin.hotkeys[index].Value.ToString();
+                                OdinsExtendedInventoryPlugin.hotkeyTexts[index].Value.IsNullOrWhiteSpace()
+                                    ? OdinsExtendedInventoryPlugin.hotkeys[index].Value.ToString()
+                                    : OdinsExtendedInventoryPlugin.hotkeyTexts[index].Value;
+                            elementData.m_go.transform.Find("binding").GetComponent<Text>().horizontalOverflow =
+                                HorizontalWrapMode.Overflow;
+                            elementData.m_go.transform.Find("binding").GetComponent<Text>().verticalOverflow =
+                                VerticalWrapMode.Overflow;
+                            
                             elementData.m_icon =
                                 elementData.m_go.transform.transform.Find("icon").GetComponent<Image>();
                             elementData.m_durability =

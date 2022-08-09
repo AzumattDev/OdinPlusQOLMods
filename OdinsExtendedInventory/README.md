@@ -1,10 +1,11 @@
-﻿The Extended Player Inventory feature from OdinQOL, pulled out for your modular pleasure. Make your inventory larger, have quickslots, etc.
+The Extended Player Inventory feature from OdinQOL, pulled out for your modular pleasure. Make your inventory larger, have quickslots, etc.
 
 
 `This mod uses ServerSync internally. Settings can change live through the BepInEx Configuration manager or by directly changing the file on the server. Can be installed on both the client and the server to enforce configuration.`
 
 
 ### Request of the community to make it modular, resulted in separation of features.
+
 
 
 > ## Configuration Options
@@ -67,6 +68,20 @@
     * Current Y of Quick Slots (Not Synced with server)
         * Default value: 9999
 
+`[Moveable Chest]`
+* ChestInventoryX [Not Synced with Server]
+    * Current X of chest. Note, if you have aedenthorn's version of this, the config here will not work. Use her mod's config instead.
+        * Default value: -1
+* ChestInventoryY [Not Synced with Server]
+    * Current Y of chest. Note, if you have aedenthorn's version of this, the config here will not work. Use her mod's config instead.
+        * Default value: -1
+* ModifierKeyOne [Not Synced with Server]
+    * First modifier key (to move the container). Use https://docs.unity3d.com/Manual/class-InputManager.html format. Note, if you have aedenthorn's version of this, the config here will not work. Use her mod's config instead.
+        * Default value: Mouse0
+* ModifierKeyOne [Not Synced with Server]
+    * Second modifier key (to move the container). Use https://docs.unity3d.com/Manual/class-InputManager.html format. Note, if you have aedenthorn's version of this, the config here will not work. Use her mod's config instead.
+        * Default value: LeftControl
+
 
 > ## Installation Instructions
 ***You must have BepInEx installed correctly! I can not stress this enough.***
@@ -106,10 +121,12 @@ For Questions or Comments, find me in the Odin Plus Team Discord:
 
 ***
 > # Update Information (Latest listed first)
-> ### 2.0.0
+> ### 3.0.0
 > - Turn QuickAccessBar into a HotKeyBar (Thanks to [Blaxxun](https://github.com/blaxxun-boop) in a [GitHub commit](https://github.com/AzumattDev/OdinPlusQOLMods/commit/56f5d28a98c24b9a965463ae0720ab62582de25d))
 >     - This provides some compatibility with Jewelcrafting and other mods that might need to modify the QuickAccessBar.
 > - Added new config options for hotkey texts and allow overflow of hotkey bindings.
->     - You can now override the hotkey text for each hotkey. Should you need it to be different than the default. 
+>     - You can now override the hotkey text for each hotkey. Should you need it to be different than the default.
+> ### 2.0.0
+> - Add moveable chest inventory and configs. Note, if you have aedenthorn's version of this, the configs here will not work in this mod. Use her mod's config instead. This is to prevent conflict.
 > ### 1.0.0
 > - Initial Release

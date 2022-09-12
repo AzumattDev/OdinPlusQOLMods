@@ -121,6 +121,8 @@ For Questions or Comments, find me in the Odin Plus Team Discord:
 
 ***
 > # Update Information (Latest listed first)
+> ### 3.0.1
+> * Mimic the fix in OdinQOL for crafted items disappearing if crafting when inventory was full.
 > ### 3.0.0
 > - Turn QuickAccessBar into a HotKeyBar (Thanks to [Blaxxun](https://github.com/blaxxun-boop) in a [GitHub commit](https://github.com/AzumattDev/OdinPlusQOLMods/commit/56f5d28a98c24b9a965463ae0720ab62582de25d))
 >     - This provides some compatibility with Jewelcrafting and other mods that might need to modify the QuickAccessBar.

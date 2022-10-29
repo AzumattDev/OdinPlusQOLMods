@@ -17,7 +17,7 @@ namespace OdinsInventoryDiscard
 
     {
         internal const string ModName = "OdinsInventoryDiscard";
-        internal const string ModVersion = "1.0.0";
+        internal const string ModVersion = "1.0.1";
         internal const string Author = "odinplus";
         private const string ModGUID = Author + "qol." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";

@@ -116,11 +116,15 @@ The Extended Player Inventory feature from OdinQOL, pulled out for your modular 
 `STEAM:` https://steamcommunity.com/id/azumatt/
 
 
-For Questions or Comments, find me in the Odin Plus Team Discord:
+For Questions or Comments, find me in the Odin Plus Team Discord or in mine:
+
 [![https://i.imgur.com/XXP6HCU.png](https://i.imgur.com/XXP6HCU.png)](https://discord.gg/Pb6bVMnFb2)
+<a href="https://discord.gg/pdHgy6Bsng"><img src="https://i.imgur.com/Xlcbmm9.png" href="https://discord.gg/pdHgy6Bsng" width="175" height="175"></a>
 
 ***
 > # Update Information (Latest listed first)
+> ### v3.0.2
+> - Update ServerSync
 > ### 3.0.1
 > * Mimic the fix in OdinQOL for crafted items disappearing if crafting when inventory was full.
 > ### 3.0.0

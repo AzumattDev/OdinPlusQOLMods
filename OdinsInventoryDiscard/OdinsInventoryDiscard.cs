@@ -17,7 +17,7 @@ namespace OdinsInventoryDiscard
 
     {
         internal const string ModName = "OdinsInventoryDiscard";
-        internal const string ModVersion = "1.0.1";
+        internal const string ModVersion = "1.0.11";
         internal const string Author = "odinplus";
         private const string ModGUID = Author + "qol." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -203,7 +203,7 @@ namespace OdinsInventoryDiscard
 
                 if (___m_dragAmount == ___m_dragItem.m_stack)
                 {
-                    Player.m_localPlayer.RemoveFromEquipQueue(___m_dragItem);
+                    Player.m_localPlayer.RemoveEquipAction(___m_dragItem);
                     Player.m_localPlayer.UnequipItem(___m_dragItem, false);
                     ___m_dragInventory.RemoveItem(___m_dragItem);
                 }

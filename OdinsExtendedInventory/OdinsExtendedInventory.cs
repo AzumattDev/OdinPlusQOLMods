@@ -15,7 +15,7 @@ namespace OdinsExtendedInventory
 
     {
         internal const string ModName = "OdinsExtendedInventory";
-        internal const string ModVersion = "3.0.2";
+        internal const string ModVersion = "3.0.21";
         internal const string Author = "odinplus";
         private const string ModGUID = Author + "qol." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";

@@ -18,7 +18,7 @@ The Extended Player Inventory feature from OdinQOL, pulled out for your modular 
     * Enable the entire mod
         * Default value: true
 
- `[Extended Inventory]`
+`[Extended Inventory]`
 * ExtraRows [Synced with Server]
     * Number of extra ordinary rows. (This can cause overlap with chest GUI, make sure you hold CTRL (the default key) and drag to desired position).
         * Default value: 0
@@ -123,15 +123,17 @@ For Questions or Comments, find me in the Odin Plus Team Discord or in mine:
 
 ***
 > # Update Information (Latest listed first)
+> ### v3.0.3
+> - Mistlands
 > ### v3.0.2
 > - Update ServerSync
 > ### 3.0.1
 > * Mimic the fix in OdinQOL for crafted items disappearing if crafting when inventory was full.
 > ### 3.0.0
 > - Turn QuickAccessBar into a HotKeyBar (Thanks to [Blaxxun](https://github.com/blaxxun-boop) in a [GitHub commit](https://github.com/AzumattDev/OdinPlusQOLMods/commit/56f5d28a98c24b9a965463ae0720ab62582de25d))
->     - This provides some compatibility with Jewelcrafting and other mods that might need to modify the QuickAccessBar.
+    >     - This provides some compatibility with Jewelcrafting and other mods that might need to modify the QuickAccessBar.
 > - Added new config options for hotkey texts and allow overflow of hotkey bindings.
->     - You can now override the hotkey text for each hotkey. Should you need it to be different than the default.
+    >     - You can now override the hotkey text for each hotkey. Should you need it to be different than the default.
 > ### 2.0.0
 > - Add moveable chest inventory and configs. Note, if you have aedenthorn's version of this, the configs here will not work in this mod. Use her mod's config instead. This is to prevent conflict.
 > ### 1.0.0
